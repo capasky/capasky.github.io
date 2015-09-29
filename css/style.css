@@ -194,7 +194,7 @@ table{
 	border-collapse:collapse;
 	border-spacing:0;
 }
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,a,code,em,img,q,small,strong,dd,dl,dt,li,ol,ul,fieldset,form,label,table,tbody,tr,th,td,input{
+html,body,div,span,object,iframe,p,blockquote,a,code,em,img,q,small,strong,dd,dl,dt,li,ol,ul,fieldset,form,label,table,tbody,tr,th,td,input{
 	margin:0;
 	padding:0;
 }
@@ -203,10 +203,17 @@ body{
 	background-size:cover;
 	background-repeat:no-repeat;
 	color:#777;
-	font-family:Raleway,"Microsoft Yahei",sans-serif;
+	font-family:"Open Sans",Helvetica,"Microsoft Yahei",sans-serif;
 	font-size:16px;
 	font-weight:300;
 	line-height:1.6;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight:500;
+	color:#303030;
+	margin-bottom:0.5rem;
+	line-height:1.25;
+	text-rendering:optimizeLegibility;
 }
 a{
 	color:#699;
@@ -217,6 +224,51 @@ a{
 }
 a:hover{
 	color:#366;
+}
+code,kbd,pre,samp{
+	font-family:Menlo,Monaco,Consolas,"Source Code Pro","Courier New",monospace;
+}
+code{
+	padding:2px 4px;
+	font-size:90%;
+	color:#c7254e;
+	background-color:#f9f2f4;
+	border-radius:4px;
+}
+blockquote{
+	padding:0.2em 0.5em;
+	background:#f2f1f2;
+	border-left:5px solid #3eafdb;
+	color:#4d4e53;
+	font-weight:400;
+	-moz-tab-size:4;
+	tab-size:4;
+	-moz-hyphens:none;
+	-webkit-hyphens:none;
+	-ms-hyphens:none;
+	hyphens:none;
+}
+table{
+	margin:0.3em auto;
+	table-layout:fixed;
+	width:80%;
+	border-collapse:collapse;
+	border-spacing:0;
+	border:1px solid #ccc;
+}
+table th,table td{
+	border:1px solid #ccc;
+	padding:0.2em 0.8em;
+}
+table th{
+	text-align:center;
+	border-bottom-width:2px;
+}
+table tbody tr:hover{
+	background-color:#f7f7f7;
+}
+table tbody tr:nth-child(odd){
+	background-color:#f9f9fe;
 }
 .f-cf{
 	*zoom:1;
@@ -240,7 +292,7 @@ body{
 .g-container{
 	width:920px;
 	margin:10px auto;
-	background:#fff;
+	overflow:hidden;
 }
 .u-badge{
 	display:inline-block;
@@ -276,14 +328,55 @@ a.u-badge:hover{
 .u-badge-error{
 	background:#e7573e;
 }
+.m-body{
+	background:#fff;
+	-moz-border-radius:4px;
+	border-radius:4px;
+	-webkit-box-shadow:0 0 10px 1px #ddd;
+	box-shadow:0 0 10px 1px #ddd;
+}
+.m-tags{
+	padding:0 12px;
+}
 .m-tags .u-badge{
-	padding:5px 8px;
+	position:relative;
+	padding:5px 8px 5px 14px;
+	margin-right:10px;
 	-webkit-transition:background-color 0.5s;
 	-moz-transition:background-color 0.5s;
 	transition:background-color 0.5s;
 }
-.m-tags .u-badge:hover{
+.m-tags .u-badge:hover,.m-tags .u-badge:hover:before{
 	background:#555;
+}
+.m-tags .u-badge:before,.m-tags .u-badge:after{
+	position:absolute;
+	display:block;
+	content:"\20";
+	-moz-border-radius:3px;
+	border-radius:3px;
+	-webkit-transition:background-color 0.5s;
+	-moz-transition:background-color 0.5s;
+	transition:background-color 0.5s;
+}
+.m-tags .u-badge:before{
+	top:3px;
+	left:-6px;
+	width:16px;
+	height:16px;
+	background:#777;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	transform:rotate(45deg);
+}
+.m-tags .u-badge:after{
+	top:9px;
+	left:0;
+	width:5px;
+	height:5px;
+	background:#eee;
 }
 .m-header .title{
 	padding:50px 0 10px;
@@ -301,10 +394,9 @@ a.u-badge:hover{
 }
 .m-main{
 	text-align:left;
-	padding:20px 70px;
 }
 .m-navbar{
-	font-size:12px;
+	font-size:14px;
 	overflow:hidden;
 }
 .m-navbar .menu-container{
@@ -330,10 +422,14 @@ a.u-badge:hover{
 	border-left:none;
 }
 .m-navbar .menu-list >li a{
+	font-size:16px;
 	color:#999;
 }
 .m-navbar .menu-list >li a:hover{
 	color:#366;
+}
+.m-main,.m-navbar .menu-container{
+	padding:0 5%;
 }
 .m-post{
 	padding:0 0 20px;
@@ -368,15 +464,24 @@ a.u-badge:hover{
 	margin:10px 0;
 	text-align:center;
 	max-width:100%;
-	-webkit-transition:box-shadow 0.5s;
-	-moz-transition:box-shadow 0.5s;
-	transition:box-shadow 0.5s;
+	-webkit-transition:all 0.3s;
+	-moz-transition:all 0.3s;
+	transition:all 0.3s;
 }
 .m-post .body img:hover{
-	box-shadow:0 0 6px rgba(0,0,0,0.15);
+	-webkit-box-shadow:0 15px 30px rgba(0,0,0,0.1);
+	box-shadow:0 15px 30px rgba(0,0,0,0.1);
+	-webkit-transform:translate3d(0,-2px,0);
+	-moz-transform:translate3d(0,-2px,0);
+	-ms-transform:translate3d(0,-2px,0);
+	-o-transform:translate3d(0,-2px,0);
+	transform:translate3d(0,-2px,0);
 }
 .m-post .body menu,.m-post .body ol,.m-post .body ul{
 	padding:0 0 0 40px;
+}
+.m-post .body a:hover{
+	text-decoration:underline;
 }
 .m-post .foot{
 	position:relative;
@@ -436,6 +541,70 @@ a.u-badge:hover{
 .m-pagination .next{
 	float:right;
 }
+.highlight >table{
+	width:100%;
+	table-layout:fixed;
+	border:none;
+}
+.highlight td,.highlight th{
+	border:none;
+	padding:0;
+}
+.highlight .gutter pre,.highlight .code pre{
+	margin:0;
+	font:16px "Consolas","Source Code Pro";
+	background-color:#f5f5f5;
+	border:1px solid #ddd;
+	line-height:1.8;
+}
+.highlight .gutter{
+	width:30px;
+	text-align:right;
+}
+.highlight .gutter pre{
+	padding:0 3px;
+	background-color:#f0f0f0;
+	border-right-color:transparent;
+	-moz-border-top-left-radius:3px;
+	border-top-left-radius:3px;
+	-moz-border-bottom-left-radius:3px;
+	border-bottom-left-radius:3px;
+}
+.highlight .code pre{
+	-moz-border-top-right-radius:3px;
+	border-top-right-radius:3px;
+	-moz-border-bottom-right-radius:3px;
+	border-bottom-right-radius:3px;
+	overflow:auto;
+}
+.highlight .code .line{
+	display:inline-block;
+	width:100%;
+	padding:0 5px;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	white-space:pre;
+	overflow-wrap:normal;
+}
+.highlight .code .line:hover{
+	background-color:#fff;
+}
+.highlight span.title,.highlight span.keyword{
+	color:#5252ee;
+}
+.highlight span.attribute{
+	color:#09c;
+}
+.highlight span.value,.highlight span.string{
+	color:#158c39;
+}
+.highlight span.number{
+	color:#c96529;
+}
+.highlight span.regexp,.highlight span.literal{
+	color:#7e1dae;
+}
 @media only screen and (max-width: 959px){
 	body{
 		padding:4px 8px;
@@ -451,12 +620,7 @@ a.u-badge:hover{
 		padding:0;
 	}
 	.g-container{
-		margin-left:0;
-		margin-right:0;
-		width:100%;
-	}
-	.m-navbar .menu-container,.m-main{
-		padding:10px;
+		margin:0;
 	}
 	.m-post .head .title{
 		font-size:22px;

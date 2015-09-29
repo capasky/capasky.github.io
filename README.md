@@ -1,2 +1,0 @@
-# capasky.github.io
-pages
