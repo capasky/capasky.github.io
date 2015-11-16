@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
-  
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
   <link href='//fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
@@ -45,10 +45,13 @@
 			<div class="content">
 				<h2 id="批量删除本地分支">批量删除本地分支</h2><p>以删除所有名称包含“feature/4.0-”字段的本地分支 为例子，对应的命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch | grep <span class="string">'feature/4.0-'</span> | xargs git branch <span class="operator">-d</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="强制更新本地分支">强制更新本地分支</h2><p>在某个分支被force update（使用 <code>git push -f</code> ）之后，其他开发者的本地仓库中如果持有这个分支的前一个副本，则无法通过 <code>git pull</code> 来更新，以下命令提供类似于 <code>git pull -f</code> 的功能：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch --all</span><br><span class="line">$ git reset --hard origin/master</span><br></pre></td></tr></table></figure></p>
+<p>PS: 注意在reset之前保存工作区，如使用 <code>git stash</code> 命令。</p>
 <h2 id="cherry-pick：抓某个提交扔当前分支">cherry-pick：抓某个提交扔当前分支</h2><h2 id="手动rebase">手动rebase</h2><p>以下代码进入手动reabse过程，处理HEAD之前的5个提交<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i HEAD~<span class="number">5</span></span><br></pre></td></tr></table></figure></p>
-<p>这个命令会进入vi，提供一个commit列表：</p>
+<p>这个命令会进入提交记录编辑，提供一个commit列表：</p>
 <p><img class="img" src="/images/git-rebase-i.png" alt="git-rebase-i"></p>
-<p>在上图中，通过编辑 <strong>提交记录</strong> 进行手动rebase的过程。</p>
+<p>在上图中，通过编辑 <strong>提交记录</strong> 进行手动rebase的过程。<br>这个命令对于需要调整commit很有用，比如合并多个commit、修改commit顺序等。</p>
+<h2 id="查看单个文件">查看单个文件</h2><p>查看单个文件的提交记录可以使用如下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -p path/to/file.ext</span><br></pre></td></tr></table></figure></p>
+<p>对于文件中以行为单位的提交记录，可以使用以下命令：<br>···sh<br>$ git blame path/to/file.ext<br>```<br>这个命令会显示文件中每行的最后修改commit hash以及作者。</p>
 
 			</div>
 		

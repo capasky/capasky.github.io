@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
-  
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
   <link href='//fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
@@ -94,9 +94,10 @@
 </tbody>
 </table>
 <ul>
-<li>wrap 表示对转行的处理，字面意思为包装，即是外部容器会包住内容，不泄露，所以，当遇到容器边缘时，会自动换行；</li>
-<li>pre 是英文 <code>preservation</code> 的简写，即保留的意思。因此，pre值会保留所有的换行符、空格和制表符，并且保持文字原有的方式不进行自动换行；<br>因此可以有以下理解：<blockquote>
+<li>wrap 表示对转行的处理，字面意思为包装，即是外部容器会包住内容，不侧漏，所以当容器中的内容遇到容器边缘时，会自动换行；</li>
+<li>pre 是英文 <code>preservation</code> 的简写，即保留的意思，所以pre值会完全“忠于原著”；<br>因此可以有以下理解：<blockquote>
 <ol>
+<li><code>normal</code> 默认值，该转行转行，该合并合并；</li>
 <li><code>nowrap</code> 即是不进行自动换行处理；</li>
 <li><code>pre</code> 保留所有的换行符、空格和制表符，不进行自动换行；</li>
 <li><code>pre-wrap = pre + wrap</code>，为在pre的基础上，进行自动换行；</li>
@@ -105,8 +106,17 @@
 </blockquote>
 </li>
 </ul>
-<h2 id="2-_word-break">2. word-break</h2><p>word-break CSS 属性指定怎样在单词内断行。</p>
-<p>其初始值为normal。可取值及意义：<br>normal 使用默认的断行规则。<br>break-all 对于non-CJK (中文/日文/韩文) 文本，可在任意字符间断行。<br>keep-all CJK 文本不断行。 Non-CJK 文本表现同 normal。</p>
+<p><strong>Example</strong></p>
+<h2 id="2-_word-break">2. word-break</h2><p>word-break CSS 属性指定怎样在单词内断行。<br>其初始值为normal。可取值及意义：</p>
+<blockquote>
+<ol>
+<li><code>normal</code> 使用默认的断行规则。</li>
+<li><code>break-all</code> 对于non-CJK (中文/日文/韩文) 文本，可在任意字符间断行。</li>
+<li><code>keep-all</code> CJK 文本不断行。 Non-CJK 文本表现同 normal。</li>
+</ol>
+</blockquote>
+<p><strong>Example</strong></p>
+<p><img class="img" src="/images/word-break.png" alt="word-break"></p>
 <h2 id="3-_word-wrap_和_overflow-wrap">3. word-wrap 和 overflow-wrap</h2>
 			</div>
 		
