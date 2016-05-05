@@ -13,7 +13,7 @@
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/style.css" type="text/css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/8.7/styles/default.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 	<div class="g-container m-body">
@@ -43,25 +43,26 @@
 	<div class="body">
 		
 			<div class="content">
-				<p>这是一篇Regularjs组件的开发指南，并非一种开发规范，只作为一个Regularjs组件开发的指导规范。本规范适用于开发基础通用组件和应用程序业务组件（亦即可称为模块组件）。</p>
+				<p>这是一篇Regularjs组件的开发指南，并非一种开发规范，只作为一个Regularjs组件开发的总结指导。本规范适用于开发基础通用组件和应用程序业务组件（亦即可称为模块组件）。</p>
 <blockquote>
-<p>PS: 阅读本指南前，请先阅读<a href="http://regularjs.github.io/guide/" target="_blank" rel="external">Regularjs官方开发指南</a>及<a href="http://regularjs.github.io/reference/" target="_blank" rel="external">API文档</a>。</p>
+<p><span class="u-label u-label-danger">强烈PS</span> 阅读本指南前，请先阅读<a href="http://regularjs.github.io/guide/" target="_blank" rel="external">Regularjs官方开发指南</a>及<a href="http://regularjs.github.io/reference/" target="_blank" rel="external">API文档</a>。</p>
 </blockquote>
 <p><img class="img" src="/images/regular-ui-logo.png" alt="regular-ui-v5"></p>
 <h2 id="1-_概述">1. 概述</h2><p>基础的开发中的命名规范基于<a href="http://rainfore.me/regular-ui/start/rule.html" target="_blank" rel="external">Regular-UI的命名规范</a>，本规范在此基础上进行了扩展。<br>组件开发规范是定义在开发基于Regularjs的应用时，通用组件及模块组件的开发约定。</p>
 <h3 id="1-1_通用组件">1.1 通用组件</h3><p>通用组件是对可复用组件的封装，其定义了组件的内部逻辑及事件处理。如<code>ComboBox</code>、<code>TreeView</code>等组件。这些组件通常会作为应用中的基础组件使用，或者作为基组件通过Regularjs中的组件继承机制，实现特定的功能扩展及处理。</p>
 <h3 id="1-2_模块组件">1.2 模块组件</h3><p>模块组件通常是应用程序中一个功能模块的封装，基于Regularjs的组件机制封装成模块组件，也可以成为业务组件（封装特定业务实现）。模块组件是针对具体的功能模块封装的，也可以实现复用。</p>
-<h2 id="2-_组件声明">2. 组件声明</h2><p>组件是声明方式是基于Regularjs组件继承机制，通常的声明方式如下（使用CommonJS）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Regular = requrie(<span class="string">'regularjs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Component = Regular.extend(&#123;</span><br><span class="line">    name: <span class="string">'component'</span>,</span><br><span class="line">    template: <span class="string">'&lt;div&gt;&lt;/div&gt;'</span>,</span><br><span class="line">    events: &#123;</span><br><span class="line">        <span class="string">'event'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    $config: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        data.foo = <span class="string">'bar'</span>;</span><br><span class="line">        <span class="keyword">this</span>.supr();</span><br><span class="line">    &#125;,</span><br><span class="line">    $init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> subComponent = <span class="keyword">this</span>.$refs[<span class="string">'subComponent'</span>];</span><br><span class="line">        subComponent.$on(<span class="string">'select'</span>, <span class="keyword">this</span>._onSubComponentSelect.bind(<span class="keyword">this</span>));</span><br><span class="line">        <span class="keyword">this</span>.supr();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Component;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-_组件声明">2. 组件声明</h2><p>组件是声明方式是基于Regularjs组件继承机制，通常的声明方式如下（使用CommonJS）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Regular = requrie(<span class="string">'regularjs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Component = Regular.extend(&#123;</span><br><span class="line">    name: <span class="string">'component'</span>,</span><br><span class="line">    template: <span class="string">'&lt;div&gt;&lt;/div&gt;'</span>,</span><br><span class="line">    events: &#123;</span><br><span class="line">        <span class="string">'event'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    config: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        data.foo = <span class="string">'bar'</span>;</span><br><span class="line">        <span class="keyword">this</span>.supr();</span><br><span class="line">    &#125;,</span><br><span class="line">    init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> subComponent = <span class="keyword">this</span>.$refs[<span class="string">'subComponent'</span>];</span><br><span class="line">        subComponent.$on(<span class="string">'select'</span>, <span class="keyword">this</span>._onSubComponentSelect.bind(<span class="keyword">this</span>));</span><br><span class="line">        <span class="keyword">this</span>.supr();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Component;</span><br></pre></td></tr></table></figure></p>
 <p>其中，对于组件声明有以下建议：</p>
 <ol>
 <li>组件名称 <code>name</code>，对于不需要通过组件名称一标签方式声明的组件则不需要该属性</li>
 <li>组件模板 <code>template</code></li>
 <li>组件事件处理 <code>events</code>，注意，events中声明的事件处理函数的this指向组件本身</li>
-<li>数据配置 <code>$config</code>，由于该方法参与组件生命周期过程，必须在该方法中调用基组件的同名方法（使用<code>this.supr()</code>）</li>
-<li>组件初始化 <code>$init</code>，该方法调用时，组件的模板已经经过编译，可以通过 <code>$refs</code> 获取到模板中声明的子组件或DOM节点的引用。此方法同 <code>$config</code> 方法一样参与组件生命周期过程，也必须调用 <code>this.supr()</code></li>
+<li>数据配置 <code>config</code>，由于该方法参与组件生命周期过程，必须在该方法中调用基组件的同名方法（使用<code>this.supr()</code>）</li>
+<li>组件初始化 <code>init</code>，该方法调用时，组件的模板已经经过编译，可以通过 <code>$refs</code> 获取到模板中声明的子组件或DOM节点的引用。此方法同 <code>config</code> 方法一样参与组件生命周期过程，也必须调用 <code>this.supr()</code></li>
 <li><p>不要在声明中定义组件数据，类似以下的代码：</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Foo = Regular.extend(&#123;</span><br><span class="line">    name: <span class="string">'foo'</span>,</span><br><span class="line">    template: <span class="string">''</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        bar: <span class="string">'xxx'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    $config: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p> <code>extend</code>方法中声明的所有属性和方法均处于组件的原型结构上，如果将数据声明在组件的定义中，会使得所有的组件的实例对象共享这个数据，这样会产生很多问题。<br> 通常的作法是将数据的初始化声明于 <code>$config</code> 方法中。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Foo = Regular.extend(&#123;</span><br><span class="line">    name: <span class="string">'foo'</span>,</span><br><span class="line">    template: <span class="string">''</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        bar: <span class="string">'xxx'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    config: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p> <code>extend</code>方法中声明的所有属性和方法均处于组件的原型结构上，如果将数据声明在组件的定义中，会使得所有的组件的实例对象共享这个数据，这样会产生很多问题。<br> 通常的作法是将数据的初始化声明于 <code>$config</code> 方法中。一种推荐的方式是在 <code>config</code> 中使用类似 mix 的合并对象的函数。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Foo = Regular.extend(&#123;</span><br><span class="line">    name: <span class="string">'foo'</span>,</span><br><span class="line">    template: <span class="string">''</span>,</span><br><span class="line">    config: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	utils.mix(<span class="keyword">this</span>.data, &#123;</span><br><span class="line">foo: <span class="string">'axsel'</span>,</span><br><span class="line">bar: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    	&#125;);</span><br><span class="line">    	<span class="keyword">this</span>.supr();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="3-_组件事件">3. 组件事件</h2><p>组件事件是指在组件内部定义的自定义事件，详细请参考 <a href="http://regularjs.github.io/guide/zh/events/component.html" target="_blank" rel="external">组件事件-Regularjs-Guide</a></p>
@@ -83,7 +84,11 @@
 </ol>
 <h3 id="3-3_事件参数">3.3 事件参数</h3><p>组件事件的触发使用Regularjs提供的<code>$emit</code>方法，该方法的用法见<a href="http://regularjs.github.io/reference/?api-zh#api-reference-实例接口-componentemit" target="_blank" rel="external">此处</a>。该方法除了第一个参数为事件名称外，剩余的参数 <em>都会作为参数传入到监听器</em> 中，即作为事件参数，传入事件处理函数中。原生DOM事件的参数为由<a href="http://regularjs.github.io/reference/?api-zh#api-reference-其它-regulardom" target="_blank" rel="external">Regularjs包装过的事件参数对象</a>。组件的自定事件参数则由组件自行确定。<br>本指南推荐自定义的组件事件参数基于以下格式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    source: obj, <span class="comment">//触发事件的事件源，即事件的发起者，通常为</span></span><br><span class="line">    target: target, <span class="comment">//事件处理的目标对象</span></span><br><span class="line">    other: <span class="number">0</span>, <span class="comment">//其他相关参数</span></span><br><span class="line">    args: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><code>source</code> 和 <code>target</code> 可以明确指明，该事件由何组件触发，并作用于那个对象（数据）之上。</p>
-<h2 id="4-">4.</h2><h2 id="5-_组件设计实现技巧">5. 组件设计实现技巧</h2><h2 id="6-_Regularjs的使用">6. Regularjs的使用</h2><h3 id="6-1_Regularjs组件的创建">6.1 Regularjs组件的创建</h3><p>Regularjs的组件可以通过2中方式创建：</p>
+<h2 id="4-_组件通信">4. 组件通信</h2><p>Regularjs中组件的通信可以通过两种方式实现：</p>
+<ol>
+<li>通过数据共享进行双向绑定</li>
+<li>通过事件<h3 id="4-1_双向绑定">4.1 双向绑定</h3><h3 id="4-2_事件通信">4.2 事件通信</h3><h2 id="5-_组件设计实现技巧">5. 组件设计实现技巧</h2><h2 id="6-_Regularjs的使用">6. Regularjs的使用</h2><h3 id="6-1_Regularjs组件的创建">6.1 Regularjs组件的创建</h3>Regularjs的组件可以通过2中方式创建：</li>
+</ol>
 <ul>
 <li><code>new Component(options)</code></li>
 <li>标签声明: <code>&lt;component data={data} /&gt;</code></li>
@@ -118,9 +123,22 @@
 <li>父子组件间的数据绑定</li>
 </ol>
 <h3 id="6-2_$watch">6.2 $watch</h3><p>Regularjs组件的<code>$watch</code> 方法提供了自定义监控数据的方式，通常用于对组件中的数据变更做出额外的响应，如加载外部数据等。<br>例如如下代码，在 <code>term</code> 变更时，加载外部数据。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">config: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.data.term = <span class="string">''</span>;</span><br><span class="line">	<span class="keyword">this</span>.supr();</span><br><span class="line">	<span class="keyword">this</span>.$watch(<span class="string">'term'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">nv</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.load(nv);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>使用<code>$watch</code>时应注意，<em>不要在监控变更的回调函数中更改监控的数据</em>，否则监控的回调会被再次执行。<br>另外，一种极其特殊的情况是在 <code>$watch</code> 的回调中改变监控的变量，并且每次改变的值均不相同，这种情况会造成脏检查过程中，确定监控属性的值时无法稳定下来，造成循环，产生错误（Regularjs限制循环次数上限为20）。这个原则也</p>
+<p>使用<code>$watch</code>时应注意，</p>
+<blockquote>
+<p><em>不要在监控变更的回调函数中更改监控的数据</em>，<br>否则监控的回调会被再次执行：执行两次（值）或多次（引用，并且在。<br>另外，一种极其特殊的情况是在 <code>$watch</code> 的回调中改变监控的变量，并且每次改变的值均不相同，这种情况会造成脏检查过程中，确定监控属性的值时无法稳定下来，造成循环，产生错误（Regularjs限制循环次数上限为20）。</p>
+</blockquote>
 <h3 id="6-3_$update">6.3 $update</h3><h3 id="6-4_filter_&amp;_directive_&amp;_implement">6.4 filter &amp; directive &amp; implement</h3><p>Regularjs中的这几个接口： <code>filter</code>, <code>directive</code>, <code>implement</code> 为Regularjs的组件提供十分强大灵活扩展机制。可以参考<a href="http://regularjs.github.io/guide/zh/advanced/modular.html" target="_blank" rel="external">官方文档</a>。<br>这几个接口的使用心得将另行文探讨（其实就是还没写，=。=）。</p>
 <h2 id="7-_注释">7. 注释</h2><p>基础注释规范遵循JSDoc3，详情请参见<a href="http://usejsdoc.org/" target="_blank" rel="external">Use JSDoc</a>。</p>
+<h2 id="8-_杂项">8. 杂项</h2><ol>
+<li>关于命名上的一些约定</li>
+</ol>
+<ul>
+<li><p>组件配置项命名<br>  组件配置项通常会在组件的 <code>config</code> 方法中声明，以下是一些推荐的命名：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">config: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	util.extend(<span class="keyword">this</span>.data, &#123;</span><br><span class="line">		<span class="comment">//定义组件行为特性</span></span><br><span class="line">		visible: <span class="literal">true</span>, <span class="comment">//定义组件的可视性，即显示或隐藏或其他特殊含义</span></span><br><span class="line">		enable: <span class="literal">true</span>, <span class="comment">//定义组件的可用状态，</span></span><br><span class="line">		closable: <span class="literal">false</span>, <span class="comment">//定义组件是否支持关闭，如Window，Dialog</span></span><br><span class="line">		resizable: <span class="literal">true</span>, <span class="comment">//定义组件是否支持改变大小</span></span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组件接口命名<br>  组件接口</p>
+</li>
+</ul>
 <h3 id="相关链接">相关链接</h3><ul>
 <li><a href="http://regularjs.github.io/" target="_blank" rel="external">Regularjs</a></li>
 <li><a href="https://regular-ui.github.io/" target="_blank" rel="external">Regular-UI</a></li>
@@ -133,11 +151,11 @@
 	<div class="m-tags">
 		
 			
-			<span class="u-badge">
+			<span class="u-label">
 				<a href="/tags/guide/">guide</a>
 			</span>
 			
-			<span class="u-badge">
+			<span class="u-label">
 				<a href="/tags/regularjs/">regularjs</a>
 			</span>
 			

@@ -203,7 +203,7 @@ body{
 	background-size:cover;
 	background-repeat:no-repeat;
 	color:#777;
-	font-family:"Open Sans",Helvetica,"Microsoft Yahei",sans-serif;
+	font-family:"Merriweather",Helvetica,"Microsoft Yahei",sans-serif;
 	font-size:16px;
 	font-weight:300;
 	line-height:1.6;
@@ -238,7 +238,7 @@ code{
 blockquote{
 	padding:0.4em 0.5em;
 	background:#f2f1f2;
-	border-left:5px solid #2496c2;
+	border-left:5px solid #0093aa;
 	color:#4d4e53;
 	font-weight:400;
 	-moz-tab-size:4;
@@ -294,11 +294,11 @@ body{
 	margin:10px auto;
 	overflow:hidden;
 }
-.u-badge{
+.u-label{
 	display:inline-block;
 	vertical-align:middle;
 }
-.u-badge{
+.u-label{
 	padding:3px 4px;
 	min-width:10px;
 	line-height:1;
@@ -310,23 +310,52 @@ body{
 	-moz-border-radius:3px;
 	border-radius:3px;
 }
-.u-badge a{
+.u-label a{
 	color:#fff;
 }
-a.u-badge:hover{
+a.u-label:hover{
 	color:#fff;
 }
-.u-badge-info{
-	background:#3eafdb;
+.u-label-info{
+	background:#00bfdd;
 }
-.u-badge-success{
-	background:#8ec051;
+.u-label-success{
+	background:#8dca35;
 }
-.u-badge-warning{
-	background:#f6bb43;
+.u-label-warning{
+	background:#ff702a;
 }
-.u-badge-error{
-	background:#e7573e;
+.u-label-error{
+	background:#da3610;
+}
+.u-label-danger{
+	background:#da3610;
+}
+.u-alert{
+	padding:5px 10px;
+	margin-bottom:1rem;
+	border:1px solid transparent;
+	border-radius:4px;
+}
+.u-alert-info{
+	color:#006777;
+	background:#77edff;
+	border-color:#44e6ff;
+}
+.u-alert-success{
+	color:#557920;
+	background:#d1eaae;
+	border-color:#bbdf86;
+}
+.u-alert-warning{
+	color:#c34000;
+	background:#ffd7c3;
+	border-color:#ffb490;
+}
+.u-alert-error{
+	color:#7b1e09;
+	background:#f7a08c;
+	border-color:#f3795d;
 }
 .m-body{
 	background:#fff;
@@ -338,7 +367,7 @@ a.u-badge:hover{
 .m-tags{
 	padding:0 12px;
 }
-.m-tags .u-badge{
+.m-tags .u-label{
 	position:relative;
 	padding:5px 8px 5px 14px;
 	margin-right:10px;
@@ -346,10 +375,10 @@ a.u-badge:hover{
 	-moz-transition:background-color 0.5s;
 	transition:background-color 0.5s;
 }
-.m-tags .u-badge:hover,.m-tags .u-badge:hover:before{
+.m-tags .u-label:hover,.m-tags .u-label:hover:before{
 	background:#555;
 }
-.m-tags .u-badge:before,.m-tags .u-badge:after{
+.m-tags .u-label:before,.m-tags .u-label:after{
 	position:absolute;
 	display:block;
 	content:"\20";
@@ -359,9 +388,9 @@ a.u-badge:hover{
 	-moz-transition:background-color 0.5s;
 	transition:background-color 0.5s;
 }
-.m-tags .u-badge:before{
+.m-tags .u-label:before{
 	top:3px;
-	left:-6px;
+	left:-7px;
 	width:16px;
 	height:16px;
 	background:#777;
@@ -371,7 +400,7 @@ a.u-badge:hover{
 	-o-transform:rotate(45deg);
 	transform:rotate(45deg);
 }
-.m-tags .u-badge:after{
+.m-tags .u-label:after{
 	top:9px;
 	left:0;
 	width:5px;

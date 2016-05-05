@@ -13,7 +13,7 @@
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/style.css" type="text/css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/8.7/styles/default.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 	<div class="g-container m-body">
@@ -43,15 +43,50 @@
 	<div class="body">
 		
 			<div class="content">
-				<h2 id="批量删除本地分支">批量删除本地分支</h2><p>以删除所有名称包含“feature/4.0-”字段的本地分支 为例子，对应的命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch | grep <span class="string">'feature/4.0-'</span> | xargs git branch <span class="operator">-d</span></span><br></pre></td></tr></table></figure></p>
+				<h2 id="config">config</h2><ol>
+<li><p>本地配置和全局配置</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name=<span class="string">'tick'</span> <span class="comment">#本地配置</span></span><br><span class="line">$ git config --global user.name=<span class="string">'Tok'</span> <span class="comment">#全局配置</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑<br>使用 <code>git config --edit</code> 会打开默认编辑器（如vim），可以手动编辑。</p>
+</li>
+<li>常用<blockquote>
+<p>user.name<br>user.email</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="批量删除本地分支">批量删除本地分支</h2><p>以删除所有名称包含“feature/4.0-”字段的本地分支 为例子，对应的命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch | grep <span class="string">'feature/4.0-'</span> | xargs git branch <span class="operator">-d</span></span><br></pre></td></tr></table></figure></p>
+<p>以上代码含义：</p>
+<ol>
+<li>列出本地所有分支</li>
+<li>筛选包含“feature/4.0-”字段的本地分支</li>
+<li>将筛选的结果作为参数 执行 <code>git branch -d [branch]</code></li>
+</ol>
 <h2 id="强制更新本地分支">强制更新本地分支</h2><p>在某个分支被force update（使用 <code>git push -f</code> ）之后，其他开发者的本地仓库中如果持有这个分支的前一个副本，则无法通过 <code>git pull</code> 来更新，以下命令提供类似于 <code>git pull -f</code> 的功能：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch --all</span><br><span class="line">$ git reset --hard origin/master</span><br></pre></td></tr></table></figure></p>
-<p>PS: 注意在reset之前保存工作区，如使用 <code>git stash</code> 命令。</p>
-<h2 id="cherry-pick：抓某个提交扔当前分支">cherry-pick：抓某个提交扔当前分支</h2><h2 id="手动rebase">手动rebase</h2><p>以下代码进入手动reabse过程，处理HEAD之前的5个提交<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i HEAD~<span class="number">5</span></span><br></pre></td></tr></table></figure></p>
-<p>这个命令会进入提交记录编辑，提供一个commit列表：</p>
+<p>PS: 注意在reset之前保存工作区，如使用 <code>git stash</code> 命令。所以，通常的用法如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git stash <span class="comment">#暂存当前工作区变更</span></span><br><span class="line">$ git fetch --all <span class="comment">#从所有远程仓库获取代码更新数据</span></span><br><span class="line">$ git reset --hard origin/master <span class="comment">#重置本地当前分支为远程分支</span></span><br><span class="line">$ git stash pop <span class="comment">#从暂存区弹出之前暂存的工作区变更</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="cherry-pick：抓某个提交扔当前分支">cherry-pick：抓某个提交扔当前分支</h2><p>这个命令通常用于修改某个分支的提交，比如在整理分支提交的时候会用</p>
+<h2 id="手动rebase">手动rebase</h2><p>以下代码进入手动reabse过程，处理HEAD之前的5个提交（merge的提交会被忽略）<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i HEAD~<span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p><div class="u-alert u-alert-warning"><i class="fa fa-info-circle"></i> 注意，使用该命令前，请确保工作区是干净的，例如可以使用 <code>git stash</code> 暂存。</div><br>这个命令会进入提交记录编辑，提供一个commit列表：</p>
 <p><img class="img" src="/images/git-rebase-i.png" alt="git-rebase-i"></p>
 <p>在上图中，通过编辑 <strong>提交记录</strong> 进行手动rebase的过程。<br>这个命令对于需要调整commit很有用，比如合并多个commit、修改commit顺序等。</p>
+<p>通常，手动rebase过程会导致 merge commit 记录丢失，可以加入参数<code>--preserve-merges</code>，或<code>-p</code>。参见<a href="http://stackoverflow.com/questions/6221624/how-to-avoid-git-rebase-killing-merge-commits" target="_blank" rel="external">这里</a>。</p>
 <h2 id="查看单个文件">查看单个文件</h2><p>查看单个文件的提交记录可以使用如下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -p path/to/file.ext</span><br></pre></td></tr></table></figure></p>
-<p>对于文件中以行为单位的提交记录，可以使用以下命令：<br>···sh<br>$ git blame path/to/file.ext<br>```<br>这个命令会显示文件中每行的最后修改commit hash以及作者。</p>
+<p>对于文件中以行为单位的提交记录，可以使用以下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git blame path/to/file.ext</span><br></pre></td></tr></table></figure></p>
+<p>这个命令会显示文件中每行的最后修改commit hash以及作者。</p>
+<h2 id="提交提交">提交提交</h2><ol>
+<li>修改提交消息<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>该命令会打开默认编辑器编辑提交信息</p>
+<ol>
+<li><p>修改提交作者</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --author=<span class="string">"Capasky &lt;capasky@live.com&gt;"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改前一个提交的文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD^</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>或者<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD~<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p><code>git reset --soft</code>会把提交中的代码恢复到暂存区，我们可以在暂存区继续修改，然后在重新提交。</p>
 
 			</div>
 		
@@ -59,7 +94,7 @@
 	<div class="m-tags">
 		
 			
-			<span class="u-badge">
+			<span class="u-label">
 				<a href="/tags/git/">git</a>
 			</span>
 			
