@@ -614,9 +614,6 @@ a.u-label:hover{
 	white-space:pre;
 	overflow-wrap:normal;
 }
-.highlight .code .line:hover{
-	background-color:#fff;
-}
 .highlight span.title,.highlight span.keyword{
 	color:#5252ee;
 }
