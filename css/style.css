@@ -507,7 +507,7 @@ a.u-label:hover{
 .m-post .body menu,.m-post .body ol,.m-post .body ul{
 	padding:0 0 0 40px;
 }
-.m-post .body a:hover{
+.m-post .body a{
 	text-decoration:underline;
 }
 .m-post .foot{

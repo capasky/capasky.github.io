@@ -57,32 +57,33 @@
 <li>通过 <code>xargs</code> 将筛选的结果作为参数 执行 <code>git branch -d [branch]</code></li>
 </ol>
 <p>命令利用了shell脚本中的<a href="http://linuxcommand.org/lts0060.php" target="_blank" rel="external">shell pipe</a>功能。<br>另外，注意下 <code>git branch -d &lt;branch&gt;</code> 命令会先确认要删除的分支已合并到了其上游分支，强制删除分支可以使用 <code>-D</code> 参数。</p>
-<h2 id="强制更新本地分支">强制更新本地分支</h2><p>在某个分支被force update（使用 <code>git push -f</code> ）之后，其他开发者的本地仓库中如果持有这个分支的前一个副本，则无法通过 <code>git pull</code> 来更新，以下命令提供类似于 <code>git pull -f</code> 的功能：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch --all</span><br><span class="line">$ git reset --hard origin/master</span><br></pre></td></tr></table></figure></p>
+<h2 id="强制更新本地分支">强制更新本地分支</h2><p>在某个分支被强制更新（force update，使用 <code>git push -f</code> ）之后，其他开发者的本地仓库中如果持有这个分支的前一个副本，则无法通过 <code>git pull</code> 来更新，以下命令提供<strong>类似于</strong> <code>git pull -f</code> 的功能：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch --all</span><br><span class="line">$ git reset --hard origin/master</span><br></pre></td></tr></table></figure></p>
 <p>PS: 注意在reset之前保存工作区，如使用 <code>git stash</code> 命令。所以，通常的用法如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git stash <span class="comment">#暂存当前工作区变更</span></span><br><span class="line">$ git fetch --all <span class="comment">#从所有远程仓库获取代码更新数据</span></span><br><span class="line">$ git reset --hard origin/master <span class="comment">#重置本地当前分支为远程分支</span></span><br><span class="line">$ git stash pop <span class="comment">#从暂存区弹出之前暂存的工作区变更</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="cherry-pick：抓某个提交扔当前分支">cherry-pick：抓某个提交扔当前分支</h2><p>这个命令通常用于修改某个分支的提交，比如在整理分支提交的时候会用</p>
-<h2 id="手动rebase">手动rebase</h2><p>以下代码进入手动reabse过程，处理HEAD之前的5个提交（merge的提交会被忽略）<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i HEAD~<span class="number">5</span></span><br></pre></td></tr></table></figure></p>
-<p><div class="u-alert u-alert-warning"><i class="fa fa-info-circle"></i> 注意，使用该命令前，请确保工作区是干净的，例如可以使用 <code>git stash</code> 暂存。</div><br>这个命令会进入提交记录编辑，提供一个commit列表：</p>
+<h2 id="手动rebase">手动rebase</h2><p>有时候，需要对提交记录做调整，例如移除或修改某条提交。如果是前一个提交记录，我们可以在修改文件后使用 <code>git add path/to/file.ext</code> 添加文件到暂存区，再使用 <code>git commit --amend</code> 将修改更新到上一个提交中，同时可以修改提交消息。如果需要修改更早的提交，这种方式就无能为力了。git的rebase功能可以做到这一点。<br>以下代码进入手动reabse过程，处理HEAD之前的5个提交（merge的提交会被忽略）<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i HEAD~<span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p>这个命令会进入提交记录编辑，提供一个commit列表：</p>
 <p><img class="img" src="/images/git-rebase-i.png" alt="git-rebase-i"></p>
-<p>在上图中，通过编辑 <strong>提交记录</strong> 进行手动rebase的过程。<br>这个命令对于需要调整commit很有用，比如合并多个commit、修改commit顺序等。</p>
-<p>通常，手动rebase过程会导致 merge commit 记录丢失，可以加入参数<code>--preserve-merges</code>，或<code>-p</code>。参见<a href="http://stackoverflow.com/questions/6221624/how-to-avoid-git-rebase-killing-merge-commits" target="_blank" rel="external">这里</a>。</p>
-<h2 id="查看单个文件">查看单个文件</h2><p>查看单个文件的提交记录可以使用如下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -p path/to/file.ext</span><br></pre></td></tr></table></figure></p>
+<p>在上图中，通过编辑 <strong>提交记录</strong> 进行手动rebase的过程。这个命令对于需要调整commit很有用，每一行代表一个提交，你可以：</p>
+<ol>
+<li>删除某行以丢弃这一次提交</li>
+<li>调整提交顺序 -&gt; 调整行</li>
+<li>编辑某次提交，使用 r(reword)、e(edit) 命令</li>
+<li>合并若干次提交 使用 s(squash)、f(fixup)</li>
+<li>其他 x(exec)</li>
+</ol>
+<p>通常，手动rebase过程会导致 merge commit 记录丢失，可以加入参数<code>--preserve-merges</code>，或<code>-p</code>。参见<a href="http://stackoverflow.com/questions/6221624/how-to-avoid-git-rebase-killing-merge-commits" target="_blank" rel="external">这里</a>。<br>关于 git的 rebase，可以参见<a href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA" target="_blank" rel="external">Git 分支 - 变基</a>。</p>
+<div class="u-alert u-alert-warning"><i class="fa fa-info-circle"></i> 注意，使用该命令前，请确保工作区是干净的，例如可以使用 <code>git stash</code> 暂存。</div>
+
+<h2 id="单个文件操作">单个文件操作</h2><p>查看单个文件的提交记录可以使用如下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -p path/to/file.ext</span><br></pre></td></tr></table></figure></p>
 <p>对于文件中以行为单位的提交记录，可以使用以下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git blame path/to/file.ext</span><br></pre></td></tr></table></figure></p>
 <p>这个命令会显示文件中每行的最后修改commit hash以及作者。</p>
-<h2 id="提交提交">提交提交</h2><ol>
-<li>修改提交消息<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>该命令会打开默认编辑器编辑提交信息</p>
-<ol>
-<li><p>修改提交作者</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --author=<span class="string">"Capasky &lt;capasky@live.com&gt;"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改前一个提交的文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD^</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h2 id="提交提交">提交提交</h2><h3 id="1-_修改提交消息">1. 修改提交消息</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+<p>该命令会打开默认编辑器编辑提交信息。另外，该命令还可以将当前暂存区的内容一起提交到前一个提交记录中，参见<a href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C" target="_blank" rel="external">Git 基础 - 撤消操作</a>。</p>
+<h3 id="2-_修改提交作者">2. 修改提交作者</h3><p>当前一次提交使用了不正确的作者信息，可以使用一下命令修改作者：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --author=<span class="string">"Capasky &lt;capasky@live.com&gt;"</span></span><br></pre></td></tr></table></figure></p>
+<p>如果需要修改更早的提交，就需要配合前述的 <a href="#手动rebase">手动rebase</a> 方法，对于需要修改作者的提交，使用 <code>edit</code> 命令，然后在rebase过程中再使用上述命令即可。</p>
+<h3 id="3-_修改前一个提交的文件">3. 修改前一个提交的文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD^</span><br></pre></td></tr></table></figure>
 <p>或者<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD~<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
 <p><code>git reset --soft</code>会把提交中的代码恢复到暂存区，我们可以在暂存区继续修改，然后在重新提交。</p>
+<p><em>&lt;未完待续&gt;</em></p>
 
 			</div>
 		
